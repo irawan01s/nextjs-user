@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import axios from 'axios'
 import UserList from '../components/UserList'
 
 const  User = ({users}) => {
@@ -12,10 +13,11 @@ const  User = ({users}) => {
   )
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const uri = process.env.API_URI
-  const res = await fetch(uri)
-  const users = await res.json()
+  const res = await axios.get(`${uri}/users`)
+  const users = res.data.data
+  console.log(uri)
 
   if (!users) {
     return {
@@ -25,7 +27,7 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      users: users.data
+      users: users
     }
   }
 }

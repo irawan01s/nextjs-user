@@ -4,8 +4,8 @@ import UserItem from './UserItem'
 const UserList = ({ users }) => {
   return (
     <div className={userStyles.grid}>
-      {users.map((user) => (
-        <UserItem user={user} />
+      {users.map((user, idx) => (
+        <UserItem user={user} key={idx}/>
       ))}
     </div>
   )
